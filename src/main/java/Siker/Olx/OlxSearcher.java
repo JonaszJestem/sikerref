@@ -15,9 +15,10 @@ public class OlxSearcher implements Searcher {
         String url = searchProperties.getFormattedUrl();
         try {
             Document document = Jsoup.connect(url).get();
-            System.out.println(document);
+
             OlxResultBuilder olxResultBuilder = new OlxResultBuilder(document);
-            return olxResultBuilder.getResults();
+
+            return olxResultBuilder.build();
         } catch (IOException e) {
             e.printStackTrace();
         }
