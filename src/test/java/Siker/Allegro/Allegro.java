@@ -1,4 +1,4 @@
-package Siker.Olx;
+package Siker.Allegro;
 
 import Siker.Offer;
 import org.junit.Before;
@@ -14,38 +14,38 @@ import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.hamcrest.collection.IsEmptyCollection.empty;
 
 
-public class OlxSearcherTest {
+public class Allegro {
 
     private final String query = "kawa";
-    private OlxSearchProperties searchProperties;
+    private AllegroSearchProperties searchProperties;
 
     @Before
     public void setUp() {
-        searchProperties = new OlxSearchProperties().query(query);
+        searchProperties = new AllegroSearchProperties().query(query);
     }
 
     @Test
     public void testSearchNotEmpty() {
-        OlxSearcher olxSearcher = new OlxSearcher();
-        List<Offer> search = olxSearcher.search(searchProperties);
+        AllegroSearcher AllegroSearcher = new AllegroSearcher();
+        List<Offer> search = AllegroSearcher.search(searchProperties);
 
         assertThat("Search should contain offers", search, is(not(empty())));
     }
 
     @Test
     public void testSearchOnDifferentPages() {
-        OlxSearcher olxSearcher = new OlxSearcher();
+        AllegroSearcher AllegroSearcher = new AllegroSearcher();
 
-        for (int i = 1; i < 10; i++) {
-            List<Offer> search = olxSearcher.search(searchProperties.page(i));
+        for (int i = 1; i < 3; i++) {
+            List<Offer> search = AllegroSearcher.search(searchProperties.page(i));
             assertThat("Search should contain offers", search, is(not(empty())));
         }
     }
 
     @Test
     public void testSearchPricesAscending() {
-        OlxSearcher olxSearcher = new OlxSearcher();
-        List<Offer> search = olxSearcher.search(searchProperties.sorting("PRICE_ASCENDING"));
+        AllegroSearcher AllegroSearcher = new AllegroSearcher();
+        List<Offer> search = AllegroSearcher.search(searchProperties.sorting("PRICE_ASCENDING"));
 
         assertThat("Search should contain offers", search, is(not(empty())));
         int minPrice = 0;
@@ -60,8 +60,8 @@ public class OlxSearcherTest {
 
     @Test
     public void testSearchPricesDescending() {
-        OlxSearcher olxSearcher = new OlxSearcher();
-        List<Offer> search = olxSearcher.search(searchProperties.sorting("PRICE_DESCENDING"));
+        AllegroSearcher AllegroSearcher = new AllegroSearcher();
+        List<Offer> search = AllegroSearcher.search(searchProperties.sorting("PRICE_DESCENDING"));
 
         assertThat("Search should contain offers", search, is(not(empty())));
         int maxPrice = Integer.MAX_VALUE;

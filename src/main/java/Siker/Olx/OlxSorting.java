@@ -1,15 +1,16 @@
 package Siker.Olx;
 
 
-class OlxSorting {
+enum OlxSorting {
+    PRICE_ASCENDING("filter_float_price:asc"), PRICE_DESCENDING("filter_float_price:desc"), NEWEST("created_at:desc");
 
-    static String getSorting(String sorting) {
-        if(sorting.equalsIgnoreCase("PRICE_ASCENDING")) {
-            return "filter_float_price:asc";
-        }
-        if(sorting.equalsIgnoreCase("PRICE_DESCENDING")) {
-            return "filter_float_price:desc";
-        }
-        return "";
+    private final String sorting;
+
+    OlxSorting(String sorting) {
+        this.sorting = sorting;
+    }
+
+    String getSorting() {
+        return this.sorting;
     }
 }

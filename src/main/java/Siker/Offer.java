@@ -3,24 +3,29 @@ package Siker;
 
 public class Offer {
     private String title;
-    private String price;
+    private int price;
     private String link;
     private String thumbnail;
     private String site;
 
 
     public Offer title(String title) {
-        this.setTitle(title);
+        this.title = title;
         return this;
     }
 
     public Offer thumbnail(String thumbnail) {
-        this.setThumbnail(thumbnail);
+        this.thumbnail = thumbnail;
         return this;
     }
 
     public Offer link(String link) {
-        this.setLink(link);
+        this.link = link;
+        return this;
+    }
+
+    public Offer price(Integer price) {
+        this.price = price;
         return this;
     }
 
@@ -43,11 +48,11 @@ public class Offer {
         this.title = title;
     }
 
-    public String getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(String price) {
+    public void setPrice(int price) {
         this.price = price;
     }
 
