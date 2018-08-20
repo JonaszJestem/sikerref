@@ -14,8 +14,8 @@ import static org.hamcrest.Matchers.lessThanOrEqualTo;
 import static org.hamcrest.collection.IsEmptyCollection.empty;
 
 
-public class Allegro {
-
+public class AllegroSearcherTest
+{
     private final String query = "kawa";
     private AllegroSearchProperties searchProperties;
 
@@ -26,26 +26,27 @@ public class Allegro {
 
     @Test
     public void testSearchNotEmpty() {
-        AllegroSearcher AllegroSearcher = new AllegroSearcher();
-        List<Offer> search = AllegroSearcher.search(searchProperties);
+        AllegroSearcher allegroSearcher = new AllegroSearcher();
+        List<Offer> search = allegroSearcher.search( searchProperties );
 
         assertThat("Search should contain offers", search, is(not(empty())));
     }
 
     @Test
     public void testSearchOnDifferentPages() {
-        AllegroSearcher AllegroSearcher = new AllegroSearcher();
+        AllegroSearcher allegroSearcher = new AllegroSearcher();
 
         for (int i = 1; i < 3; i++) {
-            List<Offer> search = AllegroSearcher.search(searchProperties.page(i));
+            List<Offer> search = allegroSearcher.search( searchProperties.page( i ) );
             assertThat("Search should contain offers", search, is(not(empty())));
         }
     }
 
     @Test
     public void testSearchPricesAscending() {
-        AllegroSearcher AllegroSearcher = new AllegroSearcher();
-        List<Offer> search = AllegroSearcher.search(searchProperties.sorting("PRICE_ASCENDING"));
+        AllegroSearcher allegroSearcher = new AllegroSearcher();
+        List<Offer> search =
+                        allegroSearcher.search( searchProperties.sorting( "PRICE_ASCENDING" ) );
 
         assertThat("Search should contain offers", search, is(not(empty())));
         int minPrice = 0;
@@ -60,8 +61,9 @@ public class Allegro {
 
     @Test
     public void testSearchPricesDescending() {
-        AllegroSearcher AllegroSearcher = new AllegroSearcher();
-        List<Offer> search = AllegroSearcher.search(searchProperties.sorting("PRICE_DESCENDING"));
+        AllegroSearcher allegroSearcher = new AllegroSearcher();
+        List<Offer> search =
+                        allegroSearcher.search( searchProperties.sorting( "PRICE_DESCENDING" ) );
 
         assertThat("Search should contain offers", search, is(not(empty())));
         int maxPrice = Integer.MAX_VALUE;

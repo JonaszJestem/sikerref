@@ -59,20 +59,20 @@ public class OlxSearcherTest {
     }
 
     @Test
-    public void testSearchPricesDescending() {
+    public void testSearchPricesDescending()
+    {
         OlxSearcher olxSearcher = new OlxSearcher();
-        List<Offer> search = olxSearcher.search(searchProperties.sorting("PRICE_DESCENDING"));
+        List<Offer> search = olxSearcher.search( searchProperties.sorting( "PRICE_DESCENDING" ) );
 
-        assertThat("Search should contain offers", search, is(not(empty())));
+        assertThat( "Search should contain offers", search, is( not( empty() ) ) );
         int maxPrice = Integer.MAX_VALUE;
-        search = search.subList(5, search.size());
-        for (Offer offer : search) {
+        search = search.subList( 5, search.size() );
+        for( Offer offer : search )
+        {
             int price = offer.getPrice();
 
-            assertThat(price, is(lessThanOrEqualTo(maxPrice)));
+            assertThat( price, is( lessThanOrEqualTo( maxPrice ) ) );
             maxPrice = price;
         }
     }
-
-
 }

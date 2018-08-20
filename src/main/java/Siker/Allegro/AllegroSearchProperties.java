@@ -3,12 +3,10 @@ package Siker.Allegro;
 import Siker.SearchProperties;
 
 public class AllegroSearchProperties extends SearchProperties {
-    private final String urlFormat = "https://www.olx.pl/oferty/q-%s/?search[order]=%s&page=%s";
-    private final String defaultSorting = "NEWEST";
-    protected String sorting = AllegroSorting.valueOf(defaultSorting).getSorting();
-
-
     public AllegroSearchProperties() {
+        urlFormat = "https://allegro.pl/listing?string=%s&order=%s&p=%s";
+        sorting = "NEWEST";
+        sorting = AllegroSorting.valueOf( sorting ).getSorting();
     }
 
     public AllegroSearchProperties query(String query) {

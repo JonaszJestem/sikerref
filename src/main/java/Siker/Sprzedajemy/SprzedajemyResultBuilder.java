@@ -1,4 +1,4 @@
-package Siker.Olx;
+package Siker.Sprzedajemy;
 
 import Siker.Price;
 import Siker.ResultBuilder;
@@ -7,18 +7,17 @@ import org.jsoup.nodes.Element;
 import org.jsoup.select.Elements;
 
 
-class OlxResultBuilder
+class SprzedajemyResultBuilder
                 extends ResultBuilder
 {
-    private static final String offersSelector =
-                    "#offers_table > tbody > tr > td > div > table > tbody > tr";
-    private static final String titleSelector = "td:nth-child(2) > div > h3 > a > strong";
-    private static final String linkSelector = "td > div > h3 > a";
-    private static final String thumbnailsSelector = "td:nth-child(1) > a > img";
-    private static final String priceSelector = "td.td-price > div > p > strong";
+    private static final String offersSelector = "li > article > ul";
+    private static final String titleSelector = "li:nth-child(2) > h2 > a";
+    private static final String linkSelector = "li:nth-child(2) > h2 > a";
+    private static final String thumbnailsSelector = "li:first-child > a > span > img";
+    private static final String priceSelector = "li:nth-child(2) > div > span";
 
 
-    OlxResultBuilder( Document document )
+    SprzedajemyResultBuilder( Document document )
     {
         offerElements = document.select( offersSelector );
     }

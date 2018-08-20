@@ -3,12 +3,10 @@ package Siker.Olx;
 import Siker.SearchProperties;
 
 public class OlxSearchProperties extends SearchProperties {
-    private final String urlFormat = "https://www.olx.pl/oferty/q-%s/?search[order]=%s&page=%s";
-    private final String defaultSorting = "NEWEST";
-    protected String sorting = OlxSorting.valueOf(defaultSorting).getSorting();
-
-
     public OlxSearchProperties() {
+        urlFormat = "https://www.olx.pl/oferty/q-%s/?search[order]=%s&page=%s";
+        sorting = "NEWEST";
+        sorting = OlxSorting.valueOf( sorting ).getSorting();
     }
 
     public OlxSearchProperties query(String query) {
