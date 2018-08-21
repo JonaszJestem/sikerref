@@ -4,6 +4,7 @@ import Siker.Offer;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -28,8 +29,7 @@ public class SprzedajemySearcherTest
 
 
     @Test
-    public void testSearchNotEmpty()
-    {
+    public void testSearchNotEmpty() throws IOException {
         SprzedajemySearcher sprzedajemySearcher = new SprzedajemySearcher();
         List<Offer> search = sprzedajemySearcher.search( searchProperties );
 
@@ -38,8 +38,7 @@ public class SprzedajemySearcherTest
 
 
     @Test
-    public void testSearchOnDifferentPages()
-    {
+    public void testSearchOnDifferentPages() throws IOException {
         SprzedajemySearcher sprzedajemySearcher = new SprzedajemySearcher();
 
         for( int i = 1; i < 10; i++ )
@@ -51,8 +50,7 @@ public class SprzedajemySearcherTest
 
 
     @Test
-    public void testSearchPricesAscending()
-    {
+    public void testSearchPricesAscending() throws IOException {
         SprzedajemySearcher sprzedajemySearcher = new SprzedajemySearcher();
         List<Offer> search =
                         sprzedajemySearcher.search( searchProperties.sorting( "PRICE_ASCENDING" ) );
@@ -71,8 +69,7 @@ public class SprzedajemySearcherTest
 
 
     @Test
-    public void testSearchPricesDescending()
-    {
+    public void testSearchPricesDescending() throws IOException {
         SprzedajemySearcher sprzedajemySearcher = new SprzedajemySearcher();
         List<Offer> search = sprzedajemySearcher
                         .search( searchProperties.sorting( "PRICE_DESCENDING" ) );

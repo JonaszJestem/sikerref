@@ -4,6 +4,7 @@ import Siker.Offer;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -25,7 +26,7 @@ public class AllegroSearcherTest
     }
 
     @Test
-    public void testSearchNotEmpty() {
+    public void testSearchNotEmpty() throws IOException {
         AllegroSearcher allegroSearcher = new AllegroSearcher();
         List<Offer> search = allegroSearcher.search( searchProperties );
 
@@ -33,7 +34,7 @@ public class AllegroSearcherTest
     }
 
     @Test
-    public void testSearchOnDifferentPages() {
+    public void testSearchOnDifferentPages() throws IOException {
         AllegroSearcher allegroSearcher = new AllegroSearcher();
 
         for (int i = 1; i < 3; i++) {
@@ -43,7 +44,7 @@ public class AllegroSearcherTest
     }
 
     @Test
-    public void testSearchPricesAscending() {
+    public void testSearchPricesAscending() throws IOException {
         AllegroSearcher allegroSearcher = new AllegroSearcher();
         List<Offer> search =
                         allegroSearcher.search( searchProperties.sorting( "PRICE_ASCENDING" ) );
@@ -60,7 +61,7 @@ public class AllegroSearcherTest
     }
 
     @Test
-    public void testSearchPricesDescending() {
+    public void testSearchPricesDescending() throws IOException {
         AllegroSearcher allegroSearcher = new AllegroSearcher();
         List<Offer> search =
                         allegroSearcher.search( searchProperties.sorting( "PRICE_DESCENDING" ) );
@@ -70,7 +71,6 @@ public class AllegroSearcherTest
         search = search.subList(5, search.size());
         for (Offer offer : search) {
             int price = offer.getPrice();
-
             assertThat(price, is(lessThanOrEqualTo(maxPrice)));
             maxPrice = price;
         }

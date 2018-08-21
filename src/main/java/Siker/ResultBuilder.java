@@ -7,56 +7,37 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public abstract class ResultBuilder
-{
+public abstract class ResultBuilder {
     public Elements offerElements;
 
 
-    public List<Offer> build()
-    {
+    public List<Offer> build() {
         List<Offer> offers = new ArrayList<>();
 
-        for( Element offerElement : offerElements )
-        {
-            Offer offer = parseOffer( offerElement );
-            offers.add( offer );
+        for (Element offerElement : offerElements) {
+            Offer offer = parseOffer(offerElement);
+            offers.add(offer);
         }
 
         return offers;
     }
 
 
-    private Offer parseOffer( Element offerElement )
-    {
-        String title = getTitle( offerElement );
-        String link = getLink( offerElement );
-        String thumbnail = getThumbnail( offerElement );
-        int price = getPrice( offerElement );
+    private Offer parseOffer(Element offerElement) {
+        String title = getTitle(offerElement);
 
-        return new Offer().title( title ).thumbnail( thumbnail ).link( link ).price( price );
+        String link = getLink(offerElement);
+        String thumbnail = getThumbnail(offerElement);
+        int price = getPrice(offerElement);
+
+        return new Offer().title(title).thumbnail(thumbnail).link(link).price(price);
     }
 
+    protected abstract int getPrice(Element offerElement);
 
-    public String getTitle( Element offer )
-    {
-        return null;
-    }
+    protected abstract String getThumbnail(Element offerElement);
 
+    protected abstract String getLink(Element offerElement);
 
-    public String getLink( Element offer )
-    {
-        return null;
-    }
-
-
-    public String getThumbnail( Element offer )
-    {
-        return null;
-    }
-
-
-    public int getPrice( Element offer )
-    {
-        return 0;
-    }
+    protected abstract String getTitle(Element offerElement);
 }

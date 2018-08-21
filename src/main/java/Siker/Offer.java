@@ -2,8 +2,8 @@ package Siker;
 
 
 public class Offer {
-    private String title;
-    private int price;
+    public String title;
+    public int price;
     private String link;
     private String thumbnail;
     private String site;
@@ -78,5 +78,16 @@ public class Offer {
 
     public void setSite(String site) {
         this.site = site;
+    }
+
+    @Override
+    public String toString() {
+        return "Offer{" +
+                "title='" + title + '\'' +
+                ", price=" + price +
+                ", link='" + link + '\'' +
+                ", thumbnail='" + thumbnail + '\'' +
+                ", site='" + site + '\'' +
+                '}';
     }
 }

@@ -11,7 +11,7 @@ class OlxResultBuilder
                 extends ResultBuilder
 {
     private static final String offersSelector =
-                    "#offers_table > tbody > tr > td > div > table > tbody > tr";
+                    "table#offers_table > tbody > tr.wrap > td.offer > div.offer-wrapper > table > tbody > tr:first-child";
     private static final String titleSelector = "td:nth-child(2) > div > h3 > a > strong";
     private static final String linkSelector = "td > div > h3 > a";
     private static final String thumbnailsSelector = "td:nth-child(1) > a > img";

@@ -4,6 +4,7 @@ import Siker.Offer;
 import Siker.ResultBuilder;
 import com.google.gson.Gson;
 import org.jsoup.nodes.Document;
+import org.jsoup.nodes.Element;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,22 +13,32 @@ import java.util.List;
 class AllegroResultBuilder
                 extends ResultBuilder
 {
-    private static final String jsonSelector = "html > body > div:nth-child(2) > " +
+    private static final String jsonSelector = "body > div:nth-child(2) > " +
                     " div:nth-child(3) > div > div > div > div > div:nth-child(2) > div:nth-child(2) " +
-                    "> div > div:nth-child(3) > div > div > div > div > script:nth-child(2)";
+                    "> div > div:nth-child(3) > div > div > div > div > script:nth-child(4)";
+
     private final List<Item> items = new ArrayList<>();
 
 
     AllegroResultBuilder( Document document )
     {
         offerElements = document.select( jsonSelector );
-        String jsonOffers = offerElements.html();
-        int indexOfObject = jsonOffers.indexOf( '{' );
-        jsonOffers = jsonOffers.substring( indexOfObject );
+        String jsonOffers = truncateJson();
         Gson gson = new Gson();
         Items parsedItems = gson.fromJson( jsonOffers, Items.class );
-
         this.items.addAll( flattenStructure( parsedItems ) );
+    }
+
+    private String truncateJson() {
+        String jsonOffers = offerElements.html();
+
+        int indexOfObject = jsonOffers.indexOf( '{' );
+        int indexOfEndObject = jsonOffers.lastIndexOf("window.__listing_CookieMonster");
+
+        jsonOffers = jsonOffers.substring( indexOfObject, indexOfEndObject).trim();
+        int indexOfSemicolon = jsonOffers.lastIndexOf(";");
+        jsonOffers = jsonOffers.substring(0, indexOfSemicolon);
+        return jsonOffers;
     }
 
 
@@ -37,6 +48,9 @@ class AllegroResultBuilder
 
         for( Group group : items.items.itemsGroups )
         {
+            if(group.sponsored) {
+                continue;
+            }
             result.addAll( group.items );
         }
 
@@ -68,5 +82,25 @@ class AllegroResultBuilder
 
         return new Offer().link( parsedUrl ).price( price ).thumbnail( parsedThumbnail )
                         .title( parsedTitle );
+    }
+
+    @Override
+    protected int getPrice(Element offerElement) {
+        return 0;
+    }
+
+    @Override
+    protected String getThumbnail(Element offerElement) {
+        return null;
+    }
+
+    @Override
+    protected String getLink(Element offerElement) {
+        return null;
+    }
+
+    @Override
+    protected String getTitle(Element offerElement) {
+        return null;
     }
 }

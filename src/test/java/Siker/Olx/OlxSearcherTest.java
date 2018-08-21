@@ -4,6 +4,7 @@ import Siker.Offer;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.io.IOException;
 import java.util.List;
 
 import static org.hamcrest.CoreMatchers.is;
@@ -25,7 +26,7 @@ public class OlxSearcherTest {
     }
 
     @Test
-    public void testSearchNotEmpty() {
+    public void testSearchNotEmpty() throws IOException {
         OlxSearcher olxSearcher = new OlxSearcher();
         List<Offer> search = olxSearcher.search(searchProperties);
 
@@ -33,7 +34,7 @@ public class OlxSearcherTest {
     }
 
     @Test
-    public void testSearchOnDifferentPages() {
+    public void testSearchOnDifferentPages() throws IOException {
         OlxSearcher olxSearcher = new OlxSearcher();
 
         for (int i = 1; i < 10; i++) {
@@ -43,7 +44,7 @@ public class OlxSearcherTest {
     }
 
     @Test
-    public void testSearchPricesAscending() {
+    public void testSearchPricesAscending() throws IOException {
         OlxSearcher olxSearcher = new OlxSearcher();
         List<Offer> search = olxSearcher.search(searchProperties.sorting("PRICE_ASCENDING"));
 
@@ -52,26 +53,23 @@ public class OlxSearcherTest {
         search = search.subList(5, search.size());
         for (Offer offer : search) {
             int price = offer.getPrice();
-
             assertThat(price, is(greaterThanOrEqualTo(minPrice)));
             minPrice = price;
         }
     }
 
     @Test
-    public void testSearchPricesDescending()
-    {
+    public void testSearchPricesDescending() throws IOException {
         OlxSearcher olxSearcher = new OlxSearcher();
-        List<Offer> search = olxSearcher.search( searchProperties.sorting( "PRICE_DESCENDING" ) );
+        List<Offer> search = olxSearcher.search(searchProperties.sorting("PRICE_DESCENDING"));
 
-        assertThat( "Search should contain offers", search, is( not( empty() ) ) );
+        assertThat("Search should contain offers", search, is(not(empty())));
         int maxPrice = Integer.MAX_VALUE;
-        search = search.subList( 5, search.size() );
-        for( Offer offer : search )
-        {
+        search = search.subList(5, search.size());
+        for (Offer offer : search) {
             int price = offer.getPrice();
 
-            assertThat( price, is( lessThanOrEqualTo( maxPrice ) ) );
+            assertThat(price, is(lessThanOrEqualTo(maxPrice)));
             maxPrice = price;
         }
     }

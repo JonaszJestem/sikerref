@@ -36,43 +36,39 @@ public class AllegroResultBuilderTest
     @Test
     public void testGettingOffers()
     {
-        assertEquals( 3, offers.size() );
+        assertEquals( 2, offers.size() );
     }
 
 
     @Test
     public void testGettingThumbnails()
     {
-        assertEquals( "FAKE_IMG_1", offers.get( 0 ).getThumbnail() );
-        assertEquals( "FAKE_IMG_2", offers.get( 1 ).getThumbnail() );
-        assertEquals( "FAKE_IMG_3", offers.get( 2 ).getThumbnail() );
+        assertEquals( "FAKE_IMG_2", offers.get( 0 ).getThumbnail() );
+        assertEquals( "FAKE_IMG_3", offers.get( 1 ).getThumbnail() );
     }
 
 
     @Test
     public void testGettingTitles()
     {
-        assertEquals( "FAKE_TITLE_1", offers.get( 0 ).getTitle() );
-        assertEquals( "FAKE_TITLE_2", offers.get( 1 ).getTitle() );
-        assertEquals( "FAKE_TITLE_3", offers.get( 2 ).getTitle() );
+        assertEquals( "FAKE_TITLE_2", offers.get( 0 ).getTitle() );
+        assertEquals( "FAKE_TITLE_3", offers.get( 1 ).getTitle() );
     }
 
 
     @Test
     public void testGettingPrices()
     {
-        assertEquals( 100, offers.get( 0 ).getPrice() );
-        assertEquals( 200, offers.get( 1 ).getPrice() );
-        assertEquals( 300, offers.get( 2 ).getPrice() );
+        assertEquals( 200, offers.get( 0 ).getPrice() );
+        assertEquals( 300, offers.get( 1 ).getPrice() );
     }
 
 
     @Test
     public void testGettingLink()
     {
-        assertEquals( "FAKE_URL_1", offers.get( 0 ).getLink() );
-        assertEquals( "FAKE_URL_2", offers.get( 1 ).getLink() );
-        assertEquals( "FAKE_URL_3", offers.get( 2 ).getLink() );
+        assertEquals( "FAKE_URL_2", offers.get( 0 ).getLink() );
+        assertEquals( "FAKE_URL_3", offers.get( 1 ).getLink() );
     }
 
 }
