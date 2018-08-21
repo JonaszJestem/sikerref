@@ -3,7 +3,6 @@ package Siker.Allegro;
 import Siker.Offer;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.select.Elements;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,6 +17,7 @@ public class AllegroResultBuilderTest
 {
     private AllegroResultBuilder allegroResultBuilder;
     private Document document;
+    private List<Offer> offers;
 
 
     @Before
@@ -29,65 +29,50 @@ public class AllegroResultBuilderTest
                         .getFile() );
         document = Jsoup.parse( file, "UTF-8" );
         allegroResultBuilder = new AllegroResultBuilder( document );
+        offers = allegroResultBuilder.build();
     }
 
 
     @Test
     public void testGettingOffers()
     {
-        assertEquals( 3, allegroResultBuilder.offerElements.size() );
+        assertEquals( 3, offers.size() );
     }
 
 
     @Test
     public void testGettingThumbnails()
     {
-        Elements offers = allegroResultBuilder.offerElements;
-
-        assertEquals( "FAKE_IMG_1", allegroResultBuilder.getThumbnail( offers.get( 0 ) ) );
-        assertEquals( "No photo", allegroResultBuilder.getThumbnail( offers.get( 1 ) ) );
-        assertEquals( "FAKE_IMG_3", allegroResultBuilder.getThumbnail( offers.get( 2 ) ) );
+        assertEquals( "FAKE_IMG_1", offers.get( 0 ).getThumbnail() );
+        assertEquals( "FAKE_IMG_2", offers.get( 1 ).getThumbnail() );
+        assertEquals( "FAKE_IMG_3", offers.get( 2 ).getThumbnail() );
     }
 
 
     @Test
     public void testGettingTitles()
     {
-        Elements offers = allegroResultBuilder.offerElements;
-
-        assertEquals( "FAKE_TITLE_1", allegroResultBuilder.getTitle( offers.get( 0 ) ) );
-        assertEquals( "FAKE_TITLE_2", allegroResultBuilder.getTitle( offers.get( 1 ) ) );
-        assertEquals( "FAKE_TITLE_3", allegroResultBuilder.getTitle( offers.get( 2 ) ) );
+        assertEquals( "FAKE_TITLE_1", offers.get( 0 ).getTitle() );
+        assertEquals( "FAKE_TITLE_2", offers.get( 1 ).getTitle() );
+        assertEquals( "FAKE_TITLE_3", offers.get( 2 ).getTitle() );
     }
 
 
     @Test
     public void testGettingPrices()
     {
-        Elements offers = allegroResultBuilder.offerElements;
-
-        assertEquals( 34500, allegroResultBuilder.getPrice( offers.get( 0 ) ) );
-        assertEquals( 0, allegroResultBuilder.getPrice( offers.get( 1 ) ) );
-        assertEquals( 12300, allegroResultBuilder.getPrice( offers.get( 2 ) ) );
+        assertEquals( 100, offers.get( 0 ).getPrice() );
+        assertEquals( 200, offers.get( 1 ).getPrice() );
+        assertEquals( 300, offers.get( 2 ).getPrice() );
     }
 
 
     @Test
     public void testGettingLink()
     {
-        Elements offers = allegroResultBuilder.offerElements;
-
-        assertEquals( "FAKE_URL_1", allegroResultBuilder.getLink( offers.get( 0 ) ) );
-        assertEquals( "FAKE_URL_2", allegroResultBuilder.getLink( offers.get( 1 ) ) );
-        assertEquals( "FAKE_URL_3", allegroResultBuilder.getLink( offers.get( 2 ) ) );
+        assertEquals( "FAKE_URL_1", offers.get( 0 ).getLink() );
+        assertEquals( "FAKE_URL_2", offers.get( 1 ).getLink() );
+        assertEquals( "FAKE_URL_3", offers.get( 2 ).getLink() );
     }
 
-
-    @Test
-    public void testBuildingOffers()
-    {
-        List<Offer> offers = allegroResultBuilder.build();
-
-        assertEquals( 3, offers.size() );
-    }
 }

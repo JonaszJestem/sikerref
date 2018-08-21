@@ -10,7 +10,7 @@ import org.jsoup.select.Elements;
 class SprzedajemyResultBuilder
                 extends ResultBuilder
 {
-    private static final String offersSelector = "li > article > ul";
+    private static final String offersSelector = "section.offers > ul > li > article > ul";
     private static final String titleSelector = "li:nth-child(2) > h2 > a";
     private static final String linkSelector = "li:nth-child(2) > h2 > a";
     private static final String thumbnailsSelector = "li:first-child > a > span > img";
@@ -23,7 +23,7 @@ class SprzedajemyResultBuilder
     }
 
 
-    protected String getThumbnail( Element offer )
+    public String getThumbnail( Element offer )
     {
         Elements probableThumbnail = offer.select( thumbnailsSelector );
         if( probableThumbnail.hasAttr( "src" ) )
@@ -53,7 +53,7 @@ class SprzedajemyResultBuilder
     }
 
 
-    protected String getLink( Element offer )
+    public String getLink( Element offer )
     {
         Elements linkElements = offer.select( linkSelector );
         return linkElements.attr( "href" );

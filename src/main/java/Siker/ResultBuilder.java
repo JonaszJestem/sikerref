@@ -37,11 +37,26 @@ public abstract class ResultBuilder
     }
 
 
-    protected abstract String getTitle( Element offer );
+    public String getTitle( Element offer )
+    {
+        return null;
+    }
 
-    protected abstract String getLink( Element offer );
 
-    protected abstract String getThumbnail( Element offer );
+    public String getLink( Element offer )
+    {
+        return null;
+    }
 
-    protected abstract int getPrice( Element offer );
+
+    public String getThumbnail( Element offer )
+    {
+        return null;
+    }
+
+
+    public int getPrice( Element offer )
+    {
+        return 0;
+    }
 }

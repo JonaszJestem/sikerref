@@ -24,7 +24,7 @@ class OlxResultBuilder
     }
 
 
-    protected String getThumbnail( Element offer )
+    public String getThumbnail( Element offer )
     {
         Elements probableThumbnail = offer.select( thumbnailsSelector );
         if( probableThumbnail.hasAttr( "src" ) )
@@ -54,7 +54,7 @@ class OlxResultBuilder
     }
 
 
-    protected String getLink( Element offer )
+    public String getLink( Element offer )
     {
         Elements linkElements = offer.select( linkSelector );
         return linkElements.attr( "href" );

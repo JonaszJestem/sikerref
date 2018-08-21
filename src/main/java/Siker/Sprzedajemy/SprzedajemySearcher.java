@@ -1,12 +1,12 @@
 package Siker.Sprzedajemy;
 
 import Siker.Offer;
+import Siker.SearchProperties;
 import Siker.Searcher;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 
 import java.io.IOException;
-import java.util.Collections;
 import java.util.List;
 
 
@@ -14,22 +14,14 @@ public class SprzedajemySearcher
                 implements Searcher
 {
 
-    public List<Offer> search( SprzedajemySearchProperties searchProperties )
+    public List<Offer> search( SearchProperties searchProperties ) throws IOException
     {
         String url = searchProperties.getFormattedUrl();
-        try
-        {
-            Document document = Jsoup.connect( url ).get();
+        Document document = Jsoup.connect( url ).get();
 
-            SprzedajemyResultBuilder sprzedajemyResultBuilder =
-                            new SprzedajemyResultBuilder( document );
+        SprzedajemyResultBuilder sprzedajemyResultBuilder =
+                        new SprzedajemyResultBuilder( document );
 
-            return sprzedajemyResultBuilder.build();
-        }
-        catch( IOException e )
-        {
-            e.printStackTrace();
-        }
-        return Collections.emptyList();
+        return sprzedajemyResultBuilder.build();
     }
 }
