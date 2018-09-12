@@ -5,11 +5,16 @@ import Siker.SearchProperties;
 import Siker.Searcher;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
+import org.springframework.stereotype.Component;
 
 import java.io.IOException;
 import java.util.List;
 
-public class AllegroSearcher implements Searcher {
+
+@Component( "allegroSearcher" )
+public class AllegroSearcher
+                implements Searcher
+{
 
     public List<Offer> search( SearchProperties searchProperties ) throws IOException
     {

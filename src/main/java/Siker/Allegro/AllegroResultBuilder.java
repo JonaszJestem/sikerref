@@ -10,7 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-class AllegroResultBuilder
+public class AllegroResultBuilder
                 extends ResultBuilder
 {
     private static final String jsonSelector = "body > div:nth-child(2) > " +
