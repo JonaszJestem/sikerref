@@ -4,27 +4,41 @@ import Siker.SearchProperties;
 
 public class OlxSearchProperties extends SearchProperties {
     public OlxSearchProperties() {
-        urlFormat = "https://www.olx.pl/oferty/q-%s/?search[order]=%s&page=%s";
+        urlFormat = "https://www.olx.pl/oferty/q-%s/?search[order]=%s&withPage=%s";
         sorting = "NEWEST";
-        sorting = OlxSorting.valueOf( sorting ).getSorting();
+        sorting = getSorting( sorting );
     }
 
-    public OlxSearchProperties query(String query) {
+
+    private static String getSorting( String sorting )
+    {
+        return OlxSorting.valueOf( sorting ).getSorting();
+    }
+
+
+    public OlxSearchProperties withQuery( String query )
+    {
         this.query = query;
         return this;
     }
 
-    public OlxSearchProperties page(int page) {
+
+    public OlxSearchProperties withPage( int page )
+    {
         this.page = page;
         return this;
     }
 
-    public OlxSearchProperties sorting(String sorting) {
+
+    public OlxSearchProperties withSorting( String sorting )
+    {
         this.sorting = OlxSorting.valueOf(sorting).getSorting();
         return this;
     }
 
-    public String getFormattedUrl() {
+
+    public String getUrl()
+    {
         return String.format(urlFormat, query, sorting, page);
     }
 

@@ -19,18 +19,20 @@ public class SprzedajemySearcherTest
 {
     private final String query = "kawa";
     private SprzedajemySearchProperties searchProperties;
+    private SprzedajemySearcher sprzedajemySearcher;
 
 
     @Before
     public void setUp()
     {
-        searchProperties = new SprzedajemySearchProperties().query( query );
+        searchProperties = new SprzedajemySearchProperties().withQuery( query );
+        sprzedajemySearcher = new SprzedajemySearcher();
     }
 
 
     @Test
-    public void testSearchNotEmpty() throws IOException {
-        SprzedajemySearcher sprzedajemySearcher = new SprzedajemySearcher();
+    public void testSearchNotEmpty() throws IOException
+    {
         List<Offer> search = sprzedajemySearcher.search( searchProperties );
 
         assertThat( "Search should contain offers", search, is( not( empty() ) ) );
@@ -38,41 +40,42 @@ public class SprzedajemySearcherTest
 
 
     @Test
-    public void testSearchOnDifferentPages() throws IOException {
-        SprzedajemySearcher sprzedajemySearcher = new SprzedajemySearcher();
-
+    public void testSearchOnDifferentPages() throws IOException
+    {
         for( int i = 1; i < 10; i++ )
         {
-            List<Offer> search = sprzedajemySearcher.search( searchProperties.page( i ) );
+            List<Offer> search = sprzedajemySearcher.search( searchProperties.withPage( i ) );
             assertThat( "Search should contain offers", search, is( not( empty() ) ) );
         }
     }
 
 
     @Test
-    public void testSearchPricesAscending() throws IOException {
-        SprzedajemySearcher sprzedajemySearcher = new SprzedajemySearcher();
-        List<Offer> search =
-                        sprzedajemySearcher.search( searchProperties.sorting( "PRICE_ASCENDING" ) );
+    public void testSearchPricesAscending() throws IOException
+    {
+        List<Offer> search = sprzedajemySearcher
+                        .search( searchProperties.withSorting( "PRICE_ASCENDING" ) );
 
         assertThat( "Search should contain offers", search, is( not( empty() ) ) );
-        int minPrice = 0;
+        int prevPrice = 0;
         search = search.subList( 5, search.size() );
+
         for( Offer offer : search )
         {
             int price = offer.getPrice();
 
-            assertThat( price, is( greaterThanOrEqualTo( minPrice ) ) );
-            minPrice = price;
+            assertThat( price, is( greaterThanOrEqualTo( prevPrice ) ) );
+            prevPrice = price;
         }
     }
 
 
     @Test
-    public void testSearchPricesDescending() throws IOException {
+    public void testSearchPricesDescending() throws IOException
+    {
         SprzedajemySearcher sprzedajemySearcher = new SprzedajemySearcher();
         List<Offer> search = sprzedajemySearcher
-                        .search( searchProperties.sorting( "PRICE_DESCENDING" ) );
+                        .search( searchProperties.withSorting( "PRICE_DESCENDING" ) );
 
         assertThat( "Search should contain offers", search, is( not( empty() ) ) );
         int maxPrice = Integer.MAX_VALUE;

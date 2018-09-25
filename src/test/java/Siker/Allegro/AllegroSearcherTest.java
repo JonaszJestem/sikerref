@@ -1,6 +1,7 @@
 package Siker.Allegro;
 
 import Siker.Offer;
+import Siker.SearchProperties;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,11 +19,11 @@ import static org.hamcrest.collection.IsEmptyCollection.empty;
 public class AllegroSearcherTest
 {
     private final String query = "kawa";
-    private AllegroSearchProperties searchProperties;
+    private SearchProperties searchProperties;
 
     @Before
     public void setUp() {
-        searchProperties = new AllegroSearchProperties().query(query);
+        searchProperties = new AllegroSearchProperties().withQuery( query );
     }
 
     @Test
@@ -38,7 +39,7 @@ public class AllegroSearcherTest
         AllegroSearcher allegroSearcher = new AllegroSearcher();
 
         for (int i = 1; i < 3; i++) {
-            List<Offer> search = allegroSearcher.search( searchProperties.page( i ) );
+            List<Offer> search = allegroSearcher.search( searchProperties.withPage( i ) );
             assertThat("Search should contain offers", search, is(not(empty())));
         }
     }
@@ -47,7 +48,7 @@ public class AllegroSearcherTest
     public void testSearchPricesAscending() throws IOException {
         AllegroSearcher allegroSearcher = new AllegroSearcher();
         List<Offer> search =
-                        allegroSearcher.search( searchProperties.sorting( "PRICE_ASCENDING" ) );
+                        allegroSearcher.search( searchProperties.withSorting( "PRICE_ASCENDING" ) );
 
         assertThat("Search should contain offers", search, is(not(empty())));
         int minPrice = 0;
@@ -63,8 +64,8 @@ public class AllegroSearcherTest
     @Test
     public void testSearchPricesDescending() throws IOException {
         AllegroSearcher allegroSearcher = new AllegroSearcher();
-        List<Offer> search =
-                        allegroSearcher.search( searchProperties.sorting( "PRICE_DESCENDING" ) );
+        List<Offer> search = allegroSearcher.search(
+                        searchProperties.withSorting( "PRICE_DESCENDING" ) );
 
         assertThat("Search should contain offers", search, is(not(empty())));
         int maxPrice = Integer.MAX_VALUE;

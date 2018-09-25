@@ -10,34 +10,39 @@ public class SprzedajemySearchProperties
     {
         urlFormat = "https://sprzedajemy.pl/szukaj?inp_text=%s&sort=%s&items_per_page=60&offset=%s";
         sorting = "NEWEST";
-        sorting = SprzedajemySorting.valueOf( sorting ).getSorting();
+        sorting = getSorting( sorting );
     }
 
 
-    public SprzedajemySearchProperties query( String query )
+    private static String getSorting( String sorting )
+    {
+        return SprzedajemySorting.valueOf( sorting ).getSorting();
+    }
+
+
+    public SprzedajemySearchProperties withQuery( String query )
     {
         this.query = query;
         return this;
     }
 
 
-    public SprzedajemySearchProperties page( int page )
+    public SprzedajemySearchProperties withPage( int page )
     {
         this.page = page * 60;
         return this;
     }
 
 
-    public SprzedajemySearchProperties sorting( String sorting )
+    public SprzedajemySearchProperties withSorting( String sorting )
     {
         this.sorting = SprzedajemySorting.valueOf( sorting ).getSorting();
         return this;
     }
 
 
-    public String getFormattedUrl()
+    public String getUrl()
     {
         return String.format( urlFormat, query, sorting, page );
     }
-
 }

@@ -2,30 +2,48 @@ package Siker.Allegro;
 
 import Siker.SearchProperties;
 
-public class AllegroSearchProperties extends SearchProperties {
-    public AllegroSearchProperties() {
+
+public class AllegroSearchProperties
+                extends SearchProperties
+{
+    public AllegroSearchProperties()
+    {
         urlFormat = "https://allegro.pl/listing?string=%s&order=%s&p=%s";
         sorting = "NEWEST";
-        sorting = AllegroSorting.valueOf( sorting ).getSorting();
+        sorting = getSorting( sorting );
     }
 
-    public AllegroSearchProperties query(String query) {
+
+    private static String getSorting( String sorting )
+    {
+        return AllegroSorting.valueOf( sorting ).getSorting();
+    }
+
+
+    public SearchProperties withQuery( String query )
+    {
         this.query = query;
         return this;
     }
 
-    public AllegroSearchProperties page(int page) {
+
+    public SearchProperties withPage( int page )
+    {
         this.page = page;
         return this;
     }
 
-    public AllegroSearchProperties sorting(String sorting) {
-        this.sorting = AllegroSorting.valueOf(sorting).getSorting();
+
+    public SearchProperties withSorting( String sorting )
+    {
+        this.sorting = getSorting( sorting );
         return this;
     }
 
-    public String getFormattedUrl() {
-        return String.format(urlFormat, query, sorting, page);
+
+    public String getUrl()
+    {
+        return String.format( urlFormat, query, sorting, page );
     }
 
 }

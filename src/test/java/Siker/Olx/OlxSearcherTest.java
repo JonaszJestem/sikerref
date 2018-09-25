@@ -22,7 +22,7 @@ public class OlxSearcherTest {
 
     @Before
     public void setUp() {
-        searchProperties = new OlxSearchProperties().query(query);
+        searchProperties = new OlxSearchProperties().withQuery( query );
     }
 
     @Test
@@ -38,7 +38,7 @@ public class OlxSearcherTest {
         OlxSearcher olxSearcher = new OlxSearcher();
 
         for (int i = 1; i < 10; i++) {
-            List<Offer> search = olxSearcher.search(searchProperties.page(i));
+            List<Offer> search = olxSearcher.search( searchProperties.withPage( i ) );
             assertThat("Search should contain offers", search, is(not(empty())));
         }
     }
@@ -46,7 +46,8 @@ public class OlxSearcherTest {
     @Test
     public void testSearchPricesAscending() throws IOException {
         OlxSearcher olxSearcher = new OlxSearcher();
-        List<Offer> search = olxSearcher.search(searchProperties.sorting("PRICE_ASCENDING"));
+        List<Offer> search =
+                        olxSearcher.search( searchProperties.withSorting( "PRICE_ASCENDING" ) );
 
         assertThat("Search should contain offers", search, is(not(empty())));
         int minPrice = 0;
@@ -61,7 +62,8 @@ public class OlxSearcherTest {
     @Test
     public void testSearchPricesDescending() throws IOException {
         OlxSearcher olxSearcher = new OlxSearcher();
-        List<Offer> search = olxSearcher.search(searchProperties.sorting("PRICE_DESCENDING"));
+        List<Offer> search =
+                        olxSearcher.search( searchProperties.withSorting( "PRICE_DESCENDING" ) );
 
         assertThat("Search should contain offers", search, is(not(empty())));
         int maxPrice = Integer.MAX_VALUE;
