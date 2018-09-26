@@ -1,0 +1,19 @@
+{
+  "offers": [
+    {
+      "title": "FAKE_TITLE_1",
+      "img": "FAKE_IMG_1",
+      "link": "FAKE_LINK_1"
+    },
+    {
+      "title": "FAKE_TITLE_2",
+      "img": "FAKE_IMG_2",
+      "link": "FAKE_LINK_2"
+    },
+    {
+      "title": "FAKE_TITLE_2",
+      "img": "FAKE_IMG_2",
+      "link": "FAKE_LINK_2"
+    }
+  ]
+}

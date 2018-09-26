@@ -1,0 +1,44 @@
+body {
+  background-color: #9fdcd3;
+}
+
+#root {
+  display: flex;
+  height: 90vh;
+}
+
+.App {
+  width: 100%;
+  text-align: center;
+  margin: auto;
+}
+
+input[type="search"] {
+  font-size: 2em;
+}
+
+.collapse {
+  transform: translate(0, -34vh);
+  transition: transform 1s ease-in-out;
+  border-collapse: separate;
+}
+
+table {
+  width:100%;
+  border-collapse: collapse;
+}
+
+tr {
+  border-bottom: 1px solid gray;
+}
+
+td, th {
+  padding: 10px 0;
+}
+
+@media only screen and (min-width: 600px) {
+  .App {
+    width: 600px;
+  }
+}
+
