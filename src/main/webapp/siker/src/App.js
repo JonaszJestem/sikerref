@@ -2,7 +2,10 @@ import React, {Component} from 'react';
 import './styles.css';
 
 class App extends Component {
-
+    state = {
+        afterFirstSearch: false,
+        searchQuery: "abc",
+    };
 
     constructor(props) {
         super(props);
@@ -12,16 +15,10 @@ class App extends Component {
         this.renderOffers = this.renderOffers.bind(this);
     }
 
-    state = {
-        afterFirstSearch: false,
-        searchQuery: "abc",
-    };
-
     render() {
-        this.handleSearch()
-        let collapse = this.state.afterFirstSearch ? 'collapse' : '';
+        let collapse = this.state.afterFirstSearch ? {margin: '0 auto'} : {margin: 'auto'};
         return (
-            <div className={"App " + collapse}>
+            <div className={"App "} style={collapse}>
                 <form onSubmit={this.handleSearch}>
                     <input onChange={this.handleSearchField} value={this.state.searchQuery}
                            type="search"/>
@@ -36,15 +33,13 @@ class App extends Component {
     renderOffers() {
         let contents = [];
         if (this.state.afterFirstSearch) {
-
-
             contents.push(<thead>
             <tr>
                 <th>Image</th>
                 <th>Title</th>
             </tr>
             </thead>);
-            for (let i = 0; i < 3; i++) {
+            for (let i = 0; i < this.state.offers.length; i++) {
                 contents.push(<tr>
                     <td>{this.state.offers[i].img}</td>
                     <td>{this.state.offers[i].title}</td>
@@ -60,6 +55,7 @@ class App extends Component {
     }
 
     async handleSearch(event) {
+        event.preventDefault();
         let offers = await(await(this.getOffers())).json();
 
         this.setState({
@@ -72,7 +68,7 @@ class App extends Component {
 
     getOffers() {
         try {
-            return fetch("http://localhost:3000/offers")
+            return fetch("http://localhost:3001/offers")
         }
         catch (e) {
             return {};
